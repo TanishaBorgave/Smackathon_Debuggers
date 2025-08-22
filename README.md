@@ -3,9 +3,9 @@
 An AI-powered Blood Donation & Utilization Optimizer designed to connect donors, blood banks, and hospitals efficiently.
 This project was developed by Team Debuggers to solve the challenge of blood shortages and wastage in healthcare systems.
 
-🌐 Live Demo
+## 🔗 Live Demo  
+Check out the project here: [Blood Sync Pro](https://blood-sync-pro.vercel.app)  
 
-👉 blood-sync-pro.vercel.app
 
 🚀 Key Features
 
