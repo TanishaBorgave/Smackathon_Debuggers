@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeLink - Blood Donation Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-heart"></i>
+                <span>LifeLink</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#donate" class="nav-link">Donate Blood</a>
+                <a href="#request" class="nav-link">Request Blood</a>
+                <a href="#dashboard" class="nav-link">Dashboard</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="btn btn-outline btn-sm" onclick="showSection('request')">Emergency Request</button>
+                <button class="btn btn-primary btn-sm" onclick="showSection('donate')">Donate Now</button>
+            </div>
+            
+            <div class="nav-auth" id="navAuth">
+                <button class="btn btn-outline btn-sm" onclick="showSection('login')">Login</button>
+                <button class="btn btn-primary btn-sm" onclick="showSection('register')">Register</button>
+            </div>
+            
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <div class="nav-mobile" id="navMobile">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#donate" class="nav-link">Donate Blood</a>
+            <a href="#request" class="nav-link">Request Blood</a>
+            <a href="#dashboard" class="nav-link">Dashboard</a>
+            <button class="btn btn-outline btn-sm" onclick="showSection('request')">Emergency Request</button>
+            <button class="btn btn-primary btn-sm" onclick="showSection('donate')">Donate Now</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="hero-background">
+                    <img src="assets/hero-blood-donation.jpg" alt="Blood donation facility">
+                    <div class="hero-overlay"></div>
+                </div>
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Save Lives.
+                        <span class="text-primary">Donate Blood.</span>
+                        Make a Difference.
+                    </h1>
+                    <p class="hero-description">
+                        Connect with blood banks, hospitals, and donors in real-time. 
+                        Every donation can save up to three lives.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary btn-lg" onclick="showSection('donate')">
+                            <i class="fas fa-heart"></i>
+                            Donate Blood
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button class="btn btn-outline btn-lg" onclick="showSection('request')">
+                            <i class="fas fa-life-ring"></i>
+                            Request Blood
+                        </button>
+                        <button class="btn btn-secondary btn-lg" onclick="showSection('dashboard')">
+                            <i class="fas fa-chart-line"></i>
+                            Check Availability
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How It Works Section -->
+            <div class="how-it-works">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>How It Works</h2>
+                        <p>Simple steps to join our life-saving community</p>
+                    </div>
+                    
+                    <div class="steps-grid">
+                        <div class="step-card">
+                            <div class="step-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <h3>1. Register</h3>
+                            <p>Sign up with your blood type and contact information. It's quick, easy, and secure.</p>
+                        </div>
+                        
+                        <div class="step-card">
+                            <div class="step-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <h3>2. Donate</h3>
+                            <p>Receive notifications when your blood type is needed. Visit nearby donation centers.</p>
+                        </div>
+                        
+                        <div class="step-card">
+                            <div class="step-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3>3. Save Lives</h3>
+                            <p>Your donation directly helps patients in need. Track your impact and save lives.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Blood Stock Section -->
+            <div class="blood-stock-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Live Blood Stock Overview</h2>
+                        <p>Real-time availability across our network of partner hospitals and blood banks</p>
+                    </div>
+                    
+                    <div class="blood-stock-grid" id="bloodStockGrid">
+                        <!-- Blood stock cards will be loaded here -->
+                    </div>
+                    
+                    <div class="text-center">
+                        <button class="btn btn-outline btn-lg" onclick="showSection('dashboard')">
+                            <i class="fas fa-map-marker-alt"></i>
+                            View Full Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Impact Stats Section -->
+            <div class="impact-stats">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Our Impact</h2>
+                        <p>Together, we're making a difference in our community</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-value">12,547</div>
+                            <div class="stat-label">Lives Saved</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <div class="stat-value">8,932</div>
+                            <div class="stat-label">Units Donated</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-value">3,241</div>
+                            <div class="stat-label">Active Donors</div>
+                        </div>
+                        
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="stat-value">127</div>
+                            <div class="stat-label">Partner Hospitals</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <div class="container">
+                    <h2>Ready to Save Lives?</h2>
+                    <p>Join thousands of donors who are making a difference in their communities. Your donation could be the difference between life and death.</p>
+                    
+                    <div class="cta-actions">
+                        <button class="btn btn-secondary btn-lg" onclick="showSection('donate')">
+                            <i class="fas fa-heart"></i>
+                            Become a Donor
+                        </button>
+                        
+                        <button class="btn btn-outline btn-lg" onclick="showSection('request')">
+                            <i class="fas fa-bell"></i>
+                            Emergency Request
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Donate Section -->
+        <section id="donate" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1>Donate Blood</h1>
+                    <p>Join our life-saving community and make a difference</p>
+                </div>
+                
+                <div class="donate-content">
+                    <div class="donate-info">
+                        <h3>Why Donate?</h3>
+                        <ul>
+                            <li>One donation can save up to 3 lives</li>
+                            <li>Blood is needed every 2 seconds</li>
+                            <li>Only 3% of eligible people donate</li>
+                            <li>Your donation helps emergency situations</li>
+                        </ul>
+                        
+                        <h3>Eligibility Requirements</h3>
+                        <ul>
+                            <li>Age 18-65 years</li>
+                            <li>Weight at least 50kg</li>
+                            <li>Good general health</li>
+                            <li>No recent illnesses</li>
+                        </ul>
+                    </div>
+                    
+                    <form class="donate-form" id="donateForm">
+                        <h3>Donor Registration</h3>
+                        
+                        <div class="form-group">
+                            <label for="donorName">Full Name *</label>
+                            <input type="text" id="donorName" name="name" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="donorEmail">Email *</label>
+                                <input type="email" id="donorEmail" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="donorPhone">Phone *</label>
+                                <input type="tel" id="donorPhone" name="phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="donorBloodType">Blood Type *</label>
+                                <select id="donorBloodType" name="bloodType" required>
+                                    <option value="">Select Blood Type</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="donorAge">Age *</label>
+                                <input type="number" id="donorAge" name="age" min="18" max="65" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="donorWeight">Weight (kg) *</label>
+                                <input type="number" id="donorWeight" name="weight" min="50" step="0.1" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="donorGender">Gender *</label>
+                                <select id="donorGender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="donorAddress">Address</label>
+                            <textarea id="donorAddress" name="address" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="donorMedicalHistory">Medical History</label>
+                            <textarea id="donorMedicalHistory" name="medicalHistory" rows="3" placeholder="Any medical conditions, medications, or recent surgeries..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="donorLastDonation">Last Donation Date</label>
+                            <input type="date" id="donorLastDonation" name="lastDonation">
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-heart"></i>
+                            Register as Donor
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Request Section -->
+        <section id="request" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1>Request Blood</h1>
+                    <p>Submit a blood request for patients in need</p>
+                </div>
+                
+                <form class="request-form" id="requestForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="requestPatientName">Patient Name *</label>
+                            <input type="text" id="requestPatientName" name="patientName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="requestBloodType">Blood Type Required *</label>
+                            <select id="requestBloodType" name="bloodType" required>
+                                <option value="">Select Blood Type</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="requestUnits">Units Required *</label>
+                            <input type="number" id="requestUnits" name="units" min="1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="requestUrgency">Urgency Level *</label>
+                            <select id="requestUrgency" name="urgency" required>
+                                <option value="">Select Urgency</option>
+                                <option value="low">Low - Routine</option>
+                                <option value="medium">Medium - Scheduled</option>
+                                <option value="high">High - Emergency</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="requestHospital">Hospital/Medical Center *</label>
+                            <input type="text" id="requestHospital" name="hospital" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="requestDoctor">Doctor/Physician</label>
+                            <input type="text" id="requestDoctor" name="doctor">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="requestReason">Reason for Blood Requirement *</label>
+                        <textarea id="requestReason" name="reason" rows="3" required placeholder="Surgery, accident, medical condition, etc."></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="requestRequiredDate">Required Date *</label>
+                            <input type="date" id="requestRequiredDate" name="requiredDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="requestContactPhone">Contact Phone *</label>
+                            <input type="tel" id="requestContactPhone" name="contactPhone" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-bell"></i>
+                        Submit Blood Request
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section">
+            <div class="container">
+                <div class="dashboard-header">
+                    <div>
+                        <h1>Blood Stock Dashboard</h1>
+                        <p>Monitor blood availability, donations, and requests in real-time</p>
+                    </div>
+                    
+                    <div class="dashboard-actions">
+                        <button class="btn btn-outline btn-sm">
+                            <i class="fas fa-filter"></i>
+                            Filter
+                        </button>
+                        <button class="btn btn-outline btn-sm">
+                            <i class="fas fa-download"></i>
+                            Export
+                        </button>
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus"></i>
+                            Add Donation
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Overview -->
+                <div class="stats-overview" id="statsOverview">
+                    <!-- Stats will be loaded here -->
+                </div>
+
+                <!-- Dashboard Tabs -->
+                <div class="dashboard-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="stock">Blood Stock</button>
+                        <button class="tab-btn" data-tab="requests">Requests</button>
+                        <button class="tab-btn" data-tab="donations">Donations</button>
+                    </div>
+                    
+                    <!-- Blood Stock Tab -->
+                    <div class="tab-content active" id="stockTab">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-tint"></i> Current Blood Stock Levels</h3>
+                                <p>Real-time blood availability across all collection centers</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="blood-stock-grid" id="dashboardBloodStock">
+                                    <!-- Blood stock will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Low Stock Alerts -->
+                        <div class="dashboard-card alert-card">
+                            <div class="card-header">
+                                <h3 class="text-danger"><i class="fas fa-exclamation-triangle"></i> Low Stock Alerts</h3>
+                                <p>Blood types requiring immediate attention</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="low-stock-alerts" id="lowStockAlerts">
+                                    <!-- Low stock alerts will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Requests Tab -->
+                    <div class="tab-content" id="requestsTab">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-chart-line"></i> Blood Requests</h3>
+                                <p>Recent blood requests from hospitals and medical facilities</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="requests-table" id="requestsTable">
+                                    <!-- Requests table will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Donations Tab -->
+                    <div class="tab-content" id="donationsTab">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-users"></i> Recent Donations</h3>
+                                <p>Latest blood donations received</p>
+                            </div>
+                            <div class="card-content">
+                                <div class="donations-table" id="donationsTable">
+                                    <!-- Donations table will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login" class="section">
+            <div class="container">
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <div class="auth-header">
+                            <h2>Welcome Back</h2>
+                            <p>Sign in to your LifeLink account</p>
+                        </div>
+                        
+                        <form class="auth-form" id="loginForm">
+                            <div class="form-group">
+                                <label for="loginEmail">Email</label>
+                                <input type="email" id="loginEmail" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="loginPassword">Password</label>
+                                <input type="password" id="loginPassword" name="password" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-lg w-full">
+                                Sign In
+                            </button>
+                        </form>
+                        
+                        <div class="auth-footer">
+                            <p>Don't have an account? <a href="#" onclick="showSection('register')">Sign up</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register Section -->
+        <section id="register" class="section">
+            <div class="container">
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <div class="auth-header">
+                            <h2>Create Account</h2>
+                            <p>Join LifeLink and start saving lives</p>
+                        </div>
+                        
+                        <form class="auth-form" id="registerForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="registerName">Full Name</label>
+                                    <input type="text" id="registerName" name="name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="registerEmail">Email</label>
+                                    <input type="email" id="registerEmail" name="email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="registerPassword">Password</label>
+                                    <input type="password" id="registerPassword" name="password" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="registerConfirmPassword">Confirm Password</label>
+                                    <input type="password" id="registerConfirmPassword" name="confirmPassword" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="registerRole">Role</label>
+                                <select id="registerRole" name="role" required>
+                                    <option value="">Select Role</option>
+                                    <option value="donor">Blood Donor</option>
+                                    <option value="requester">Blood Requester</option>
+                                    <option value="admin">Administrator</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-lg w-full">
+                                Create Account
+                            </button>
+                        </form>
+                        
+                        <div class="auth-footer">
+                            <p>Already have an account? <a href="#" onclick="showSection('login')">Sign in</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="section">
+            <div class="container">
+                <div class="profile-header">
+                    <h1>My Profile</h1>
+                    <p>Manage your account and donation history</p>
+                </div>
+                
+                <div class="profile-content" id="profileContent">
+                    <!-- Profile content will be loaded here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
