@@ -1,73 +1,116 @@
-# Welcome to your Lovable project
+🩸 Blood-Sync Pro--(LifeLink)
 
-## Project info
+An AI-powered Blood Donation & Utilization Optimizer designed to connect donors, blood banks, and hospitals efficiently.
+This project was developed by Team Debuggers to solve the challenge of blood shortages and wastage in healthcare systems.
 
-**URL**: https://lovable.dev/projects/3d488f82-d02d-4325-a56d-c09e58433029
+🌐 Live Demo
 
-## How can I edit this code?
+👉 blood-sync-pro.vercel.app
 
-There are several ways of editing your application.
+🚀 Key Features
 
-**Use Lovable**
+🔑 Role-based Login – Donors, Hospitals, and Blood Banks can securely access the system.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3d488f82-d02d-4325-a56d-c09e58433029) and start prompting.
+🏥 Hospital Requests – Hospitals can request specific blood units in real time.
 
-Changes made via Lovable will be committed automatically to this repo.
+🏦 Blood Bank Stock Management – Manage availability, update expiry dates, and track donations.
 
-**Use your preferred IDE**
+🤖 AI-Powered Predictions – Forecast demand, identify shortages, and detect surplus using historical data.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+📢 Smart Notifications –
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+If shortage → Notify relevant donors.
 
-Follow these steps:
+If surplus → Alert hospitals & blood banks for optimized usage.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+🧑‍🤝‍🧑 Donor Confirmation Flow – Donors can accept/decline donation requests.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+🔄 Feedback Loop – Every donation & request improves AI accuracy.
 
-# Step 3: Install the necessary dependencies.
-npm i
+🛠️ Tech Stack
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+⚡ Vite – Next-gen build tool
+
+⚛️ React + TypeScript – Scalable front-end framework
+
+🎨 Tailwind CSS – Modern utility-first CSS
+
+🧩 shadcn/ui – Accessible and styled UI components
+
+📂 Project Structure
+Smackathon_Debuggers/
+│── blood-sync-pro/     # Main project folder
+│   ├── public/         # Static assets (favicon, images, etc.)
+│   ├── src/            # Source code
+│   │   ├── components/ # UI components
+│   │   ├── pages/      # Application pages
+│   │   ├── hooks/      # Custom hooks
+│   │   ├── lib/        # Utilities & helpers
+│   ├── index.html      # App entry point
+│   ├── package.json    # Dependencies & scripts
+│   └── tailwind.config.js
+│
+└── README.md           # Project documentation
+
+⚙️ Getting Started
+
+To run this project locally:
+
+# Clone the repository
+git clone https://github.com/TanishaBorgave/Smackathon_Debuggers.git
+
+# Navigate into the project
+cd Smackathon_Debuggers/blood-sync-pro
+
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
-```
 
-**Edit a file directly in GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Now, open http://localhost:5173/
+ in your browser 🎉
 
-**Use GitHub Codespaces**
+📌 Roadmap
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+ Donor geolocation for nearest hospital suggestions
 
-## What technologies are used for this project?
+ SMS/Email alerts for urgent blood requests
 
-This project is built with:
+ Multi-language support
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+ Mobile app (React Native)
 
-## How can I deploy this project?
+🎯 Impact
 
-Simply open [Lovable](https://lovable.dev/projects/3d488f82-d02d-4325-a56d-c09e58433029) and click on Share -> Publish.
+Blood-Sync Pro helps:
 
-## Can I connect a custom domain to my Lovable project?
+⏱️ Reduce delays in finding matching blood donors.
 
-Yes, you can!
+🩸 Prevent wastage by alerting hospitals about surplus stock.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+📊 Improve efficiency through AI-driven demand prediction.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+🌍 Contribute to saving lives with smarter healthcare logistics.
+
+🤝 Team Debuggers
+
+👩‍💻 Tanisha Borgave
+
+👨‍💻 Anubhav
+
+👨‍💻 Ayush Bhat
+
+👨‍💻 Shrushti Siriya
+
+👨‍💻 Muskan Fakir
+
+
+👨‍💻 [Add other teammates if any]
+
+📜 License
+
+This project is licensed under the MIT License.
+
+✨ Built with passion by Team Debuggers 💡
