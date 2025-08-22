@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 const path = require('path');
 
 // Import routes
-const authRoutes = require('./routes/auth');
 const donorRoutes = require('./routes/donors');
 const bloodRequestRoutes = require('./routes/bloodRequests');
 const bloodStockRoutes = require('./routes/bloodStock');
@@ -30,7 +29,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/blood-don
 .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes
-app.use('/api/auth', authRoutes);
 app.use('/api/donors', donorRoutes);
 app.use('/api/requests', bloodRequestRoutes);
 app.use('/api/stock', bloodStockRoutes);

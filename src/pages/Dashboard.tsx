@@ -15,22 +15,123 @@ import {
   Filter,
   Plus,
   Bell,
-  CheckCircle
+  CheckCircle,
+  RefreshCw
 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useToast } from "@/hooks/use-toast";
+
+interface BloodStock {
+  id: string;
+  bloodType: string;
+  units: number;
+  maxUnits: number;
+  urgency: "low" | "medium" | "high";
+  expirationDate: string;
+  source: string;
+  location: string;
+  donorName?: string;
+  collectionDate: string;
+  status: "available" | "reserved" | "expired";
+  notes?: string;
+}
 
 const Dashboard = () => {
-  // Mock data for the dashboard
-  const bloodStock = [
-    { bloodType: "A+", units: 45, maxUnits: 100, urgency: "medium" as const, expirationDays: 12 },
-    { bloodType: "A-", units: 20, maxUnits: 100, urgency: "high" as const, expirationDays: 8 },
-    { bloodType: "B+", units: 65, maxUnits: 100, urgency: "low" as const, expirationDays: 18 },
-    { bloodType: "B-", units: 15, maxUnits: 100, urgency: "high" as const, expirationDays: 5 },
-    { bloodType: "AB+", units: 30, maxUnits: 100, urgency: "medium" as const, expirationDays: 10 },
-    { bloodType: "AB-", units: 12, maxUnits: 100, urgency: "high" as const, expirationDays: 7 },
-    { bloodType: "O+", units: 80, maxUnits: 100, urgency: "low" as const, expirationDays: 20 },
-    { bloodType: "O-", units: 25, maxUnits: 100, urgency: "medium" as const, expirationDays: 14 },
-  ];
+  const { toast } = useToast();
+  const [bloodStock, setBloodStock] = useState<BloodStock[]>([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
+  // Load blood stock data from localStorage (shared with Inventory page)
+  useEffect(() => {
+    loadBloodStock();
+  }, []);
+
+  const loadBloodStock = () => {
+    const storedStock = localStorage.getItem('bloodStock');
+    if (storedStock) {
+      setBloodStock(JSON.parse(storedStock));
+    } else {
+      // Initialize with sample data if none exists
+      const sampleData: BloodStock[] = [
+        { 
+          id: "1", bloodType: "A+", units: 45, maxUnits: 100, urgency: "medium", 
+          expirationDate: "2024-02-15", source: "Voluntary Donation", location: "Main Blood Bank",
+          donorName: "John Smith", collectionDate: "2024-01-15", status: "available", notes: ""
+        },
+        { 
+          id: "2", bloodType: "A-", units: 20, maxUnits: 100, urgency: "high", 
+          expirationDate: "2024-02-08", source: "Emergency Collection", location: "Emergency Center",
+          donorName: "Sarah Johnson", collectionDate: "2024-01-08", status: "available", notes: ""
+        },
+        { 
+          id: "3", bloodType: "B+", units: 65, maxUnits: 100, urgency: "low", 
+          expirationDate: "2024-02-18", source: "Regular Donation", location: "Community Center",
+          donorName: "Mike Wilson", collectionDate: "2024-01-18", status: "available", notes: ""
+        },
+        { 
+          id: "4", bloodType: "B-", units: 15, maxUnits: 100, urgency: "high", 
+          expirationDate: "2024-02-05", source: "Directed Donation", location: "Hospital Ward",
+          donorName: "Emily Davis", collectionDate: "2024-01-05", status: "reserved", notes: ""
+        },
+        { 
+          id: "5", bloodType: "AB+", units: 30, maxUnits: 100, urgency: "medium", 
+          expirationDate: "2024-02-10", source: "Voluntary Donation", location: "Main Blood Bank",
+          donorName: "David Brown", collectionDate: "2024-01-10", status: "available", notes: ""
+        },
+        { 
+          id: "6", bloodType: "AB-", units: 12, maxUnits: 100, urgency: "high", 
+          expirationDate: "2024-02-07", source: "Emergency Collection", location: "Emergency Center",
+          donorName: "Lisa Garcia", collectionDate: "2024-01-07", status: "available", notes: ""
+        },
+        { 
+          id: "7", bloodType: "O+", units: 80, maxUnits: 100, urgency: "low", 
+          expirationDate: "2024-02-20", source: "Regular Donation", location: "Community Center",
+          donorName: "Robert Taylor", collectionDate: "2024-01-20", status: "available", notes: ""
+        },
+        { 
+          id: "8", bloodType: "O-", units: 25, maxUnits: 100, urgency: "medium", 
+          expirationDate: "2024-02-14", source: "Voluntary Donation", location: "Main Blood Bank",
+          donorName: "Jennifer Lee", collectionDate: "2024-01-14", status: "available", notes: ""
+        },
+      ];
+      setBloodStock(sampleData);
+      localStorage.setItem('bloodStock', JSON.stringify(sampleData));
+    }
+  };
+
+  const refreshData = async () => {
+    setIsRefreshing(true);
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    loadBloodStock();
+    setIsRefreshing(false);
+    toast({
+      title: "Refreshed",
+      description: "Dashboard data updated successfully."
+    });
+  };
+
+  // Listen for changes in localStorage (when Inventory page updates data)
+  useEffect(() => {
+    const handleStorageChange = () => {
+      loadBloodStock();
+    };
+
+    // Custom event for real-time updates
+    const handleInventoryUpdate = () => {
+      loadBloodStock();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('inventory-updated', handleInventoryUpdate);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('inventory-updated', handleInventoryUpdate);
+    };
+  }, []);
+
+  // Mock data for the dashboard
   const recentRequests = [
     {
       id: "REQ-001",
@@ -100,7 +201,7 @@ const Dashboard = () => {
   const stats = [
     {
       title: "Total Units Available",
-      value: "287",
+      value: bloodStock.reduce((sum, stock) => sum + stock.units, 0).toString(),
       change: "+12%",
       trend: "up",
       icon: Droplets,
@@ -124,7 +225,7 @@ const Dashboard = () => {
     },
     {
       title: "Low Stock Alerts",
-      value: "3",
+      value: bloodStock.filter(stock => stock.units < stock.maxUnits * 0.2).length.toString(),
       change: "0%",
       trend: "stable",
       icon: AlertTriangle,
@@ -173,6 +274,10 @@ const Dashboard = () => {
           </div>
           
           <div className="flex items-center space-x-3 mt-4 sm:mt-0">
+            <Button variant="outline" size="sm" onClick={refreshData} disabled={isRefreshing}>
+              <RefreshCw className={`mr-2 h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+              {isRefreshing ? 'Refreshing...' : 'Refresh'}
+            </Button>
             <Button variant="outline" size="sm">
               <Filter className="mr-2 h-4 w-4" />
               Filter
@@ -236,7 +341,29 @@ const Dashboard = () => {
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {bloodStock.map((stock) => (
-                    <BloodStockCard key={stock.bloodType} {...stock} />
+                    <div key={stock.bloodType} className="p-4 border rounded-lg bg-card">
+                      <div className="flex items-center justify-between mb-2">
+                        <Badge variant="outline" className="font-mono">
+                          {stock.bloodType}
+                        </Badge>
+                        {getUrgencyBadge(stock.urgency)}
+                      </div>
+                      <div className="text-2xl font-bold">{stock.units}</div>
+                      <div className="text-sm text-muted-foreground">
+                        of {stock.maxUnits} units
+                      </div>
+                      <div className="mt-2">
+                        <div className="w-full bg-muted rounded-full h-2">
+                          <div 
+                            className={`h-2 rounded-full ${
+                              stock.units < stock.maxUnits * 0.2 ? 'bg-urgency-high' :
+                              stock.units < stock.maxUnits * 0.5 ? 'bg-urgency-medium' : 'bg-success'
+                            }`}
+                            style={{ width: `${(stock.units / stock.maxUnits) * 100}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </CardContent>
@@ -255,14 +382,14 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {bloodStock.filter(stock => stock.urgency === 'high').map((stock) => (
+                  {bloodStock.filter(stock => stock.units < stock.maxUnits * 0.2).map((stock) => (
                     <div key={stock.bloodType} className="flex items-center justify-between p-3 border border-urgency-high/20 rounded-lg bg-background">
                       <div className="flex items-center space-x-3">
                         <Badge variant="destructive">{stock.bloodType}</Badge>
                         <div>
                           <div className="font-medium">Only {stock.units} units available</div>
                           <div className="text-sm text-muted-foreground">
-                            {stock.expirationDays} days until expiry
+                            {stock.maxUnits - stock.units} units needed
                           </div>
                         </div>
                       </div>
@@ -272,6 +399,12 @@ const Dashboard = () => {
                       </Button>
                     </div>
                   ))}
+                  {bloodStock.filter(stock => stock.units < stock.maxUnits * 0.2).length === 0 && (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <CheckCircle className="h-12 w-12 mx-auto mb-4 text-success" />
+                      <p>All blood types have adequate stock levels!</p>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>

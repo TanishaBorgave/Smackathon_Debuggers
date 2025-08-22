@@ -12,6 +12,7 @@ const Navigation = () => {
     { href: "/donate", label: "Donate Blood" },
     { href: "/request", label: "Request Blood" },
     { href: "/dashboard", label: "Dashboard" },
+    { href: "/inventory", label: "Inventory" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -53,9 +54,8 @@ const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -64,12 +64,12 @@ const Navigation = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-border">
-            <div className="flex flex-col space-y-3">
+            <div className="flex flex-col space-y-4">
               {navigationLinks.map((link) => (
                 <Link
                   key={link.href}
                   to={link.href}
-                  className={`px-2 py-1 text-sm font-medium transition-colors hover:text-primary ${
+                  className={`text-sm font-medium transition-colors hover:text-primary ${
                     isActive(link.href) ? "text-primary" : "text-muted-foreground"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
@@ -77,16 +77,12 @@ const Navigation = () => {
                   {link.label}
                 </Link>
               ))}
-              <div className="pt-3 border-t border-border space-y-2">
-                <Button variant="outline" size="sm" className="w-full" asChild>
-                  <Link to="/request" onClick={() => setIsMenuOpen(false)}>
-                    Emergency Request
-                  </Link>
+              <div className="pt-4 border-t border-border">
+                <Button variant="outline" size="sm" asChild className="w-full">
+                  <Link to="/request">Emergency Request</Link>
                 </Button>
-                <Button size="sm" className="w-full" asChild>
-                  <Link to="/donate" onClick={() => setIsMenuOpen(false)}>
-                    Donate Now
-                  </Link>
+                <Button size="sm" asChild className="w-full mt-2">
+                  <Link to="/donate">Donate Now</Link>
                 </Button>
               </div>
             </div>
