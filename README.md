@@ -94,7 +94,7 @@ Blood-Sync Pro helps:
 
 🌍 Contribute to saving lives with smarter healthcare logistics.
 
-🤝 Team Debuggers
+🤝 Team Debuggers:
 
 👩‍💻 Tanisha Borgave
 
@@ -107,7 +107,6 @@ Blood-Sync Pro helps:
 👨‍💻 Muskan Fakir
 
 
-👨‍💻 [Add other teammates if any]
 
 📜 License
 
