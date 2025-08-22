@@ -13,6 +13,7 @@ const Navigation = () => {
     { href: "/request", label: "Request Blood" },
     { href: "/dashboard", label: "Dashboard" },
     { href: "/inventory", label: "Inventory" },
+    { href: "/donor-management", label: "Donor Management" },
   ];
 
   const isActive = (path: string) => location.pathname === path;

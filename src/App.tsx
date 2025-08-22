@@ -11,6 +11,7 @@ import DonorRegistration from "./pages/DonorRegistration";
 import BloodRequest from "./pages/BloodRequest";
 import Dashboard from "./pages/Dashboard";
 import Inventory from "./pages/Inventory";
+import DonorManagement from "./pages/DonorManagement";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,9 +30,10 @@ const App = () => (
               <Route path="/donate" element={<DonorRegistration />} />
               <Route path="/request" element={<BloodRequest />} />
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/inventory" element={<Inventory />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
+                                <Route path="/inventory" element={<Inventory />} />
+                  <Route path="/donor-management" element={<DonorManagement />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
         </div>
