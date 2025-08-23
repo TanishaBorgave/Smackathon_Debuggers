@@ -1,37 +1,74 @@
-# 🩸 BloodBank Pro - Blood Donation Management System
+🩸 BloodBank Pro - Blood Donation Management System
+🌍 Overview
 
-## Overview
-LifeLink is a comprehensive Blood Donation Management System that connects blood banks, hospitals, and donors in real-time. The system provides a platform for blood donation coordination, emergency requests, and inventory management.
+BloodBankPro is a full-stack Blood Donation Management System designed to connect donors, hospitals, and blood banks in real-time. It streamlines the process of blood donation, emergency requests, and inventory management by providing a centralized platform that is efficient, reliable, and user-friendly.
 
-## 🚀 Quick Start
+This project was developed by Team Bugger’s during the SMACKATHON hackathon.
 
-Website: https://smackathon-buggers.vercel.app/
+🔗 Live Demo: BloodBankPro Website
 
-### 1. Start the Backend Server
-```bash
+🚀 Tech Stack
+
+Frontend
+
+React 18 (TypeScript)
+
+Tailwind CSS
+
+Shadcn/ui Components
+
+Lucide React (Icons)
+
+React Router
+
+Backend
+
+Node.js + Express.js
+
+MongoDB (Mongoose ODM)
+
+RESTful APIs
+
+Deployment
+
+Frontend: Vercel
+
+Backend: Node server (localhost:5000 in dev)
+
+⚙️ Quick Start
+1️⃣ Clone the Repository
+git clone https://github.com/<your-repo>.git
+cd bloodbankpro
+
+2️⃣ Start the Backend
 cd server
+npm install
 npm run dev
-```
-The backend will run on `http://localhost:5000`
 
-### 2. Start the Frontend
-```bash
+
+Backend runs on: http://localhost:5000
+
+3️⃣ Start the Frontend
+cd client
+npm install
 npm run dev
-```
-The frontend will run on `http://localhost:8080`
 
-## 📱 Available Pages
 
-### Public Pages
-- `/` - Home page with blood donation information
-- `/donate` - Blood donation registration form
-- `/request` - Blood request form for hospitals
-- `/dashboard` - Blood stock and donation overview
+Frontend runs on: http://localhost:8080
 
-## 🗄️ Database Schema
+📱 Website Structure
+Public Pages
 
-### Donor Model
-```javascript
+/ → Home page with blood donation awareness and system overview
+
+/donate → Donor registration form
+
+/request → Hospital blood request form
+
+/dashboard → Blood stock and donation overview
+
+🗄️ Database Models
+Donor Model
 {
   name: String,
   email: String,
@@ -45,10 +82,8 @@ The frontend will run on `http://localhost:8080`
   isActive: Boolean,
   timestamps: true
 }
-```
 
-### Blood Request Model
-```javascript
+Blood Request Model
 {
   hospitalName: String,
   bloodType: String,
@@ -60,10 +95,8 @@ The frontend will run on `http://localhost:8080`
   status: String,
   timestamps: true
 }
-```
 
-### Blood Stock Model
-```javascript
+Blood Stock Model
 {
   bloodType: String,
   units: Number,
@@ -73,81 +106,107 @@ The frontend will run on `http://localhost:8080`
   source: String,
   timestamps: true
 }
-```
 
-## 🔧 API Endpoints
+🔧 API Endpoints
+Donors
 
-### Donors
-- `GET /api/donors` - Get all donors
-- `POST /api/donors` - Create new donor
-- `GET /api/donors/:id` - Get donor by ID
-- `PUT /api/donors/:id` - Update donor
-- `DELETE /api/donors/:id` - Delete donor
+GET /api/donors → Fetch all donors
 
-### Blood Requests
-- `GET /api/requests` - Get all blood requests
-- `POST /api/requests` - Create new blood request
-- `GET /api/requests/:id` - Get request by ID
-- `PUT /api/requests/:id` - Update request status
-- `DELETE /api/requests/:id` - Delete request
+POST /api/donors → Register a new donor
 
-### Blood Stock
-- `GET /api/stock` - Get current blood stock
-- `POST /api/stock` - Add blood units
-- `PUT /api/stock/:id` - Update stock levels
-- `DELETE /api/stock/:id` - Remove blood units
+GET /api/donors/:id → Get donor by ID
 
-## 🎨 UI Components
+PUT /api/donors/:id → Update donor details
 
-### Built with:
-- **React 18** with TypeScript
-- **Tailwind CSS** for styling
-- **Shadcn/ui** component library
-- **Lucide React** for icons
-- **React Router** for navigation
+DELETE /api/donors/:id → Delete donor
 
-### Key Components:
-- `Navigation` - Main navigation bar
-- `Dashboard` - Blood stock overview
-- `DonorRegistration` - Donor signup form
-- `BloodRequest` - Hospital request form
+Blood Requests
 
-## 🚨 Features
+GET /api/requests → Get all requests
 
-- **Blood Donation Management** - Track donors and donations
-- **Emergency Requests** - Hospitals can request blood urgently
-- **Inventory Tracking** - Monitor blood stock levels
-- **Real-time Updates** - Live blood availability information
-- **Responsive Design** - Works on all devices
+POST /api/requests → Create a new request
 
-## 🐛 Troubleshooting
+GET /api/requests/:id → Get request by ID
 
-### Common Issues:
+PUT /api/requests/:id → Update request status
 
-1. **Backend not running**
-   ```bash
-   cd server
-   npm run dev
-   ```
+DELETE /api/requests/:id → Delete request
 
-2. **MongoDB connection failed**
-   - Ensure MongoDB is running on localhost:27017
-   - Check server/config.env file
+Blood Stock
 
-3. **Frontend port conflicts**
-   - Vite will automatically find next available port
-   - Check terminal output for actual port number
+GET /api/stock → Fetch blood stock
 
-## 📞 Support
+POST /api/stock → Add blood units
 
-For issues or questions:
-1. Check the troubleshooting section above
-2. Verify all services are running
-3. Check browser console and server logs
-4. Ensure MongoDB is accessible
+PUT /api/stock/:id → Update stock
 
----
+DELETE /api/stock/:id → Delete stock entry
 
-**Happy Blood Donation Management! 🎉**
+🎨 Key Features
 
-The LifeLink system is now ready for blood donation coordination without authentication requirements.
+✅ Donor Registration → Simple donor signup with health details
+✅ Hospital Requests → Hospitals can request blood instantly
+✅ Stock Management → Real-time tracking of available blood units
+✅ Emergency Mode → Urgent request system prioritizing critical patients
+✅ Smart Dashboard → Overview of blood stock & requests
+✅ Responsive UI → Mobile and desktop friendly
+✅ Secure Data Handling → MongoDB with Mongoose schema validation
+
+🔍 How It Works
+
+Donors register with their details (blood type, contact info, health stats).
+
+Hospitals submit blood requests via the request form with urgency levels.
+
+System checks inventory and matches requests with available blood units.
+
+Dashboard updates in real-time, showing blood stock levels, pending requests, and fulfilled donations.
+
+Admins/Blood banks manage stock by adding or updating units in the system.
+
+👨‍💻 Team Bugger’s
+
+This project was built by Team Bugger’s 💡
+
+Tanisha Borgave
+
+Ayush Bhat 
+
+Muskan Fakir 
+
+Shrushti Siriya 
+
+Anubhav Verma 
+
+🐛 Troubleshooting
+1. Backend not running
+cd server
+npm run dev
+
+2. MongoDB connection failed
+
+Ensure MongoDB is running at mongodb://localhost:27017
+
+Verify server/config.env
+
+3. Frontend port conflicts
+
+Vite will auto-assign next port (check terminal output).
+
+📞 Support
+
+If you face any issues:
+
+Check the troubleshooting section
+
+Verify all services are running
+
+Inspect browser console & server logs
+
+Ensure MongoDB is accessible
+
+🎉 Conclusion
+
+BloodBank Pro provides a centralized, real-time platform for blood donation and emergency requests. By bridging the gap between donors, hospitals, and blood banks, it makes the blood donation process faster, smarter, and more accessible.
+
+✨ Made with ❤️ by Team Bugger’s for SMACKATHON ✨
