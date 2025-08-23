@@ -96,7 +96,6 @@ const Dashboard = () => {
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [alertTemplates, setAlertTemplates] = useState<AlertTemplate[]>([]);
   const [showCreateAlert, setShowCreateAlert] = useState(false);
-  const [showAlertSettings, setShowAlertSettings] = useState(false);
   const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null);
   const [activeTab, setActiveTab] = useState("stock");
   const [lastUpdated, setLastUpdated] = useState(new Date());
@@ -527,26 +526,70 @@ const Dashboard = () => {
     });
   };
 
-  // Navigate to inventory to add donation
-  const navigateToAddDonation = () => {
-    // Switch to inventory tab if we're already on dashboard
-    window.location.href = "/inventory";
+  // Add donation functionality
+  const [showAddDonationDialog, setShowAddDonationDialog] = useState(false);
+  const [newDonation, setNewDonation] = useState({
+    bloodType: "",
+    units: 1,
+    donorName: "",
+    location: "",
+    collectionDate: "",
+    notes: ""
+  });
+
+  const handleAddDonation = () => {
+    if (!newDonation.bloodType || !newDonation.donorName || !newDonation.location) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const donation: BloodStock = {
+      id: `BLD-${Date.now()}`,
+      bloodType: newDonation.bloodType,
+      units: newDonation.units,
+      maxUnits: 100,
+      urgency: "low" as const,
+      expirationDate: new Date(Date.now() + 42 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 42 days from now
+      source: "New Donation",
+      location: newDonation.location,
+      donorName: newDonation.donorName,
+      collectionDate: newDonation.collectionDate || new Date().toISOString().split('T')[0],
+      status: "available" as const,
+      notes: newDonation.notes
+    };
+
+    const updatedStock = [...bloodStock, donation];
+    setBloodStock(updatedStock);
+    localStorage.setItem('bloodStock', JSON.stringify(updatedStock));
+    
+    // Reset form
+    setNewDonation({
+      bloodType: "",
+      units: 1,
+      donorName: "",
+      location: "",
+      collectionDate: "",
+      notes: ""
+    });
+    setShowAddDonationDialog(false);
     
     toast({
-      title: "Redirecting",
-      description: "Opening inventory page to add new donation."
+      title: "Donation Added",
+      description: `${newDonation.units} unit(s) of ${newDonation.bloodType} blood has been added to inventory.`
     });
   };
 
   // View request details
+  const [showRequestDetailsDialog, setShowRequestDetailsDialog] = useState(false);
+  const [selectedRequest, setSelectedRequest] = useState<any>(null);
+
   const viewRequestDetails = (request: any) => {
-    // Navigate to request management page with specific request
-    window.location.href = "/request";
-    
-    toast({
-      title: "Opening Request Details",
-      description: `Viewing details for request ${request.id} from ${request.hospital}.`
-    });
+    setSelectedRequest(request);
+    setShowRequestDetailsDialog(true);
   };
 
   // Use alert template
@@ -812,10 +855,100 @@ const Dashboard = () => {
               <Download className="mr-2 h-4 w-4" />
               Export Data
             </Button>
-            <Button size="sm" onClick={navigateToAddDonation}>
-              <Plus className="mr-2 h-4 w-4" />
-              Add Donation
-            </Button>
+            <Dialog open={showAddDonationDialog} onOpenChange={setShowAddDonationDialog}>
+              <DialogTrigger asChild>
+                <Button size="sm">
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add Donation
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Add New Donation</DialogTitle>
+                  <DialogDescription>
+                    Add a new blood donation to the inventory.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="donation-blood-type">Blood Type</Label>
+                      <Select value={newDonation.bloodType} onValueChange={(value) => setNewDonation({...newDonation, bloodType: value})}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select blood type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="A+">A+</SelectItem>
+                          <SelectItem value="A-">A-</SelectItem>
+                          <SelectItem value="B+">B+</SelectItem>
+                          <SelectItem value="B-">B-</SelectItem>
+                          <SelectItem value="AB+">AB+</SelectItem>
+                          <SelectItem value="AB-">AB-</SelectItem>
+                          <SelectItem value="O+">O+</SelectItem>
+                          <SelectItem value="O-">O-</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label htmlFor="donation-units">Units</Label>
+                      <Input
+                        id="donation-units"
+                        type="number"
+                        min="1"
+                        max="10"
+                        value={newDonation.units}
+                        onChange={(e) => setNewDonation({...newDonation, units: parseInt(e.target.value) || 1})}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="donation-donor">Donor Name</Label>
+                    <Input
+                      id="donation-donor"
+                      value={newDonation.donorName}
+                      onChange={(e) => setNewDonation({...newDonation, donorName: e.target.value})}
+                      placeholder="Enter donor name"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="donation-location">Location</Label>
+                    <Input
+                      id="donation-location"
+                      value={newDonation.location}
+                      onChange={(e) => setNewDonation({...newDonation, location: e.target.value})}
+                      placeholder="Enter collection location"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="donation-date">Collection Date</Label>
+                    <Input
+                      id="donation-date"
+                      type="date"
+                      value={newDonation.collectionDate}
+                      onChange={(e) => setNewDonation({...newDonation, collectionDate: e.target.value})}
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="donation-notes">Notes (Optional)</Label>
+                    <Textarea
+                      id="donation-notes"
+                      value={newDonation.notes}
+                      onChange={(e) => setNewDonation({...newDonation, notes: e.target.value})}
+                      placeholder="Additional notes about the donation"
+                      rows={3}
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setShowAddDonationDialog(false)}>
+                    Cancel
+                  </Button>
+                  <Button onClick={handleAddDonation}>
+                    Add Donation
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
 
@@ -1241,10 +1374,7 @@ const Dashboard = () => {
                     </DialogFooter>
                   </DialogContent>
                 </Dialog>
-                <Button variant="outline" onClick={() => setShowAlertSettings(true)}>
-                  <Settings className="mr-2 h-4 w-4" />
-                  Settings
-                </Button>
+
               </div>
             </div>
 
@@ -1373,6 +1503,75 @@ const Dashboard = () => {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Request Details Dialog */}
+        <Dialog open={showRequestDetailsDialog} onOpenChange={setShowRequestDetailsDialog}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Request Details</DialogTitle>
+              <DialogDescription>
+                Detailed information about the blood request
+              </DialogDescription>
+            </DialogHeader>
+            {selectedRequest && (
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>Request ID</Label>
+                    <p className="text-sm font-mono bg-muted p-2 rounded">{selectedRequest.id}</p>
+                  </div>
+                  <div>
+                    <Label>Status</Label>
+                    <div className="mt-1">{getStatusBadge(selectedRequest.status)}</div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>Blood Type</Label>
+                    <Badge variant="outline" className="font-mono mt-1">
+                      {selectedRequest.bloodType}
+                    </Badge>
+                  </div>
+                  <div>
+                    <Label>Units Required</Label>
+                    <p className="text-sm mt-1">{selectedRequest.units} units</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>Urgency</Label>
+                    <div className="mt-1">{getUrgencyBadge(selectedRequest.urgency)}</div>
+                  </div>
+                  <div>
+                    <Label>Request Time</Label>
+                    <p className="text-sm mt-1">{selectedRequest.time}</p>
+                  </div>
+                </div>
+                <div>
+                  <Label>Hospital</Label>
+                  <p className="text-sm mt-1">{selectedRequest.hospital}</p>
+                </div>
+                <div className="border-t pt-4">
+                  <h4 className="font-semibold mb-2">Additional Information</h4>
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <p><strong>Request ID:</strong> {selectedRequest.id}</p>
+                    <p><strong>Blood Type:</strong> {selectedRequest.bloodType}</p>
+                    <p><strong>Units:</strong> {selectedRequest.units}</p>
+                    <p><strong>Urgency:</strong> {selectedRequest.urgency}</p>
+                    <p><strong>Hospital:</strong> {selectedRequest.hospital}</p>
+                    <p><strong>Status:</strong> {selectedRequest.status}</p>
+                    <p><strong>Time:</strong> {selectedRequest.time}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setShowRequestDetailsDialog(false)}>
+                Close
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
