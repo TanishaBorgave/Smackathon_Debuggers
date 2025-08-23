@@ -5,7 +5,7 @@ BloodBankPro is a full-stack Blood Donation Management System designed to connec
 
 This project was developed by Team Bugger’s during the SMACKATHON hackathon.
 
-🔗 Live Demo: BloodBankPro Website
+🔗 Live Demo: (BloodBank Pro) https://smackathon-debuggers.vercel.app/
 
 🚀 Tech Stack
 
