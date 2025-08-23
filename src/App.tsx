@@ -32,7 +32,6 @@ const App = () => (
               <Route path="/dashboard" element={<Dashboard />} />
                                 <Route path="/inventory" element={<Inventory />} />
                   <Route path="/donor-management" element={<DonorManagement />} />
-              <Route path="https://www.chatbase.co/chatbot-iframe/3CPLyAUijp2xrIPATz1L-" element={<DoctorAI />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
             </Routes>
