@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import BloodStockCard from "@/components/BloodStockCard";
 import { 
-  Heart, 
   Users, 
   MapPin, 
   Bell, 
@@ -11,7 +10,8 @@ import {
   LifeBuoy,
   ArrowRight,
   Shield,
-  Activity
+  Activity,
+  Zap
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-blood-donation.jpg";
@@ -32,8 +32,8 @@ const Home = () => {
   const stats = [
     { icon: Users, label: "Lives Saved", value: "12,547" },
     { icon: Droplets, label: "Units Donated", value: "8,932" },
-    { icon: Heart, label: "Active Donors", value: "3,241" },
-    { icon: Shield, label: "Partner Hospitals", value: "127" }
+    { icon: Shield, label: "Active Donors", value: "3,241" },
+    { icon: MapPin, label: "Partner Hospitals", value: "127" }
   ];
 
   return (
@@ -50,23 +50,23 @@ const Home = () => {
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
             <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
-              Save Lives.
-              <span className="text-primary block">Donate Blood.</span>
-              Make a Difference.
+              Professional Blood
+              <span className="text-primary block">Bank Management</span>
+              System
             </h1>
             
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Connect with blood banks, hospitals, and donors in real-time. 
-              Every donation can save up to three lives.
+              Advanced blood bank management platform connecting hospitals, donors, and medical professionals. 
+              Real-time inventory tracking and donor management.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="group" asChild>
                 <Link to="/donate">
-                  <Heart className="mr-2 h-5 w-5" fill="currentColor" />
-                  Donate Blood
+                  <UserPlus className="mr-2 h-5 w-5" />
+                  Register as Donor
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
@@ -74,14 +74,14 @@ const Home = () => {
               <Button size="lg" variant="outline" asChild>
                 <Link to="/request">
                   <LifeBuoy className="mr-2 h-5 w-5" />
-                  Request Blood
+                  Blood Request
                 </Link>
               </Button>
               
               <Button size="lg" variant="secondary" asChild>
                 <Link to="/dashboard">
                   <Activity className="mr-2 h-5 w-5" />
-                  Check Availability
+                  View Dashboard
                 </Link>
               </Button>
             </div>
@@ -89,54 +89,51 @@ const Home = () => {
         </div>
       </section>
 
-      {/* How It Works Section */}
+      {/* Key Features Section */}
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              How It Works
+              Key Features
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Simple steps to join our life-saving community
+              Comprehensive blood bank management solution
             </p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="text-center p-8 hover:shadow-lg transition-shadow">
+            <Card className="text-center p-8 hover:shadow-lg transition-shadow border-0 shadow-md">
               <CardContent className="pt-6">
                 <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
                   <UserPlus className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">1. Register</h3>
+                <h3 className="text-xl font-semibold mb-4">Donor Management</h3>
                 <p className="text-muted-foreground">
-                  Sign up with your blood type and contact information. 
-                  It's quick, easy, and secure.
+                  Comprehensive donor registration, tracking, and management system with real-time updates.
                 </p>
               </CardContent>
             </Card>
             
-            <Card className="text-center p-8 hover:shadow-lg transition-shadow">
+            <Card className="text-center p-8 hover:shadow-lg transition-shadow border-0 shadow-md">
               <CardContent className="pt-6">
                 <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
                   <Droplets className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">2. Donate</h3>
+                <h3 className="text-xl font-semibold mb-4">Inventory Control</h3>
                 <p className="text-muted-foreground">
-                  Receive notifications when your blood type is needed. 
-                  Visit nearby donation centers.
+                  Real-time blood stock monitoring, expiration tracking, and automated alerts.
                 </p>
               </CardContent>
             </Card>
             
-            <Card className="text-center p-8 hover:shadow-lg transition-shadow">
+            <Card className="text-center p-8 hover:shadow-lg transition-shadow border-0 shadow-md">
               <CardContent className="pt-6">
                 <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                  <Heart className="h-8 w-8 text-primary" fill="currentColor" />
+                  <Zap className="h-8 w-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">3. Save Lives</h3>
+                <h3 className="text-xl font-semibold mb-4">Emergency Response</h3>
                 <p className="text-muted-foreground">
-                  Your donation directly helps patients in need. 
-                  Track your impact and save lives.
+                  Rapid blood request processing and donor matching for emergency situations.
                 </p>
               </CardContent>
             </Card>
@@ -149,10 +146,10 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Live Blood Stock Overview
+              Current Blood Stock
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Real-time availability across our network of partner hospitals and blood banks
+              Real-time availability across our network
             </p>
           </div>
           
@@ -165,8 +162,8 @@ const Home = () => {
           <div className="text-center">
             <Button variant="outline" size="lg" asChild>
               <Link to="/dashboard">
-                <MapPin className="mr-2 h-5 w-5" />
-                View Full Dashboard
+                <Activity className="mr-2 h-5 w-5" />
+                Full Dashboard
               </Link>
             </Button>
           </div>
@@ -178,10 +175,10 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Our Impact
+              System Statistics
             </h2>
             <p className="text-lg text-muted-foreground">
-              Together, we're making a difference in our community
+              Current platform metrics and impact
             </p>
           </div>
           
@@ -203,25 +200,25 @@ const Home = () => {
       <section className="py-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            Ready to Save Lives?
+            Get Started Today
           </h2>
           <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-            Join thousands of donors who are making a difference in their communities. 
-            Your donation could be the difference between life and death.
+            Join our professional blood bank management platform. 
+            Streamline your operations and improve patient care.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" asChild>
               <Link to="/donate">
-                <Heart className="mr-2 h-5 w-5" fill="currentColor" />
-                Become a Donor
+                <UserPlus className="mr-2 h-5 w-5" />
+                Register Donor
               </Link>
             </Button>
             
             <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary" asChild>
               <Link to="/request">
                 <Bell className="mr-2 h-5 w-5" />
-                Emergency Request
+                Blood Request
               </Link>
             </Button>
           </div>

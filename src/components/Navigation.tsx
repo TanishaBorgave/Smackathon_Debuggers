@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Heart, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -24,8 +24,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 text-primary font-bold text-xl">
-            <Heart className="h-8 w-8" fill="currentColor" />
-            <span>LifeLink</span>
+            <span>BloodBank Pro</span>
           </Link>
 
           {/* Desktop Navigation */}

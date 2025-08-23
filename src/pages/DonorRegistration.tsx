@@ -7,9 +7,24 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { Heart, UserCheck, Phone, Mail, MapPin, Calendar, Users, Activity, AlertTriangle, CheckCircle, Clock } from "lucide-react";
+import { 
+  UserPlus, 
+  Phone, 
+  Mail, 
+  MapPin, 
+  Calendar, 
+  Scale, 
+  FileText, 
+  CheckCircle, 
+  AlertCircle,
+  Users,
+  Shield,
+  Activity,
+  ArrowRight
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 interface Donor {
   id: string;
@@ -276,15 +291,16 @@ const DonorRegistration = () => {
   return (
     <div className="min-h-screen py-12 bg-muted/20">
       <div className="container mx-auto px-4 max-w-6xl">
+        {/* Header */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-4">
-            <Heart className="h-8 w-8 text-primary" fill="currentColor" />
+            <UserPlus className="h-8 w-8 text-primary" />
           </div>
           <h1 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-            Become a Life Saver
+            Blood Donor Registration
           </h1>
           <p className="text-lg text-muted-foreground">
-            Join our community of blood donors and help save lives in your area
+            Join our professional donor network and help save lives
           </p>
         </div>
 
@@ -337,7 +353,7 @@ const DonorRegistration = () => {
                   <p className="text-2xl font-bold text-foreground">{stats.recentDonors}</p>
                 </div>
                 <div className="p-3 rounded-full bg-orange-100">
-                  <Clock className="h-6 w-6 text-orange-600" />
+                  <Calendar className="h-6 w-6 text-orange-600" />
                 </div>
               </div>
             </CardContent>
@@ -350,7 +366,7 @@ const DonorRegistration = () => {
             <Card className="shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <UserCheck className="mr-2 h-5 w-5 text-primary" />
+                  <Shield className="mr-2 h-5 w-5 text-primary" />
                   Donor Registration
                 </CardTitle>
                 <CardDescription>
@@ -581,7 +597,7 @@ const DonorRegistration = () => {
                   </div>
 
                   <Button type="submit" size="lg" className="w-full">
-                    <Heart className="mr-2 h-5 w-5" fill="currentColor" />
+                    <Shield className="mr-2 h-5 w-5" fill="currentColor" />
                     Register as Donor
                   </Button>
                 </form>
@@ -616,7 +632,7 @@ const DonorRegistration = () => {
             <Card className="bg-primary/5 border-primary/20">
               <CardContent className="pt-6">
                 <div className="text-center space-y-2">
-                  <Heart className="mx-auto h-12 w-12 text-primary" fill="currentColor" />
+                  <Activity className="mx-auto h-12 w-12 text-primary" fill="currentColor" />
                   <h3 className="font-semibold">Why Donate?</h3>
                   <p className="text-sm text-muted-foreground">
                     Your donation can save up to 3 lives. Every 2 seconds, someone needs blood.
@@ -647,11 +663,11 @@ const DonorRegistration = () => {
           <AlertDialogContent>
             <AlertDialogHeader>
               <AlertDialogTitle className="flex items-center">
-                <Heart className="mr-2 h-5 w-5 text-primary" fill="currentColor" />
+                <Shield className="mr-2 h-5 w-5 text-primary" fill="currentColor" />
                 Registration Successful!
               </AlertDialogTitle>
               <AlertDialogDescription>
-                Thank you for joining LifeLink! You are now registered as a blood donor. 
+                Thank you for joining BloodBank Pro! You are now registered as a blood donor. 
                 You will receive notifications when your blood type is urgently needed in your area.
               </AlertDialogDescription>
             </AlertDialogHeader>
